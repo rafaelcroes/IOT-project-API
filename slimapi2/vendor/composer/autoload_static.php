@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit63661d32234c94a7c47675fbaa16f77c
+class ComposerStaticInit040c47e9da8fff344e2e3922b79e04d6
 {
     public static $files = array (
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
@@ -74,6 +74,10 @@ class ComposerStaticInit63661d32234c94a7c47675fbaa16f77c
         ),
     );
 
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/../..' . '/src',
+    );
+
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -86,9 +90,10 @@ class ComposerStaticInit63661d32234c94a7c47675fbaa16f77c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit63661d32234c94a7c47675fbaa16f77c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit63661d32234c94a7c47675fbaa16f77c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit63661d32234c94a7c47675fbaa16f77c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit040c47e9da8fff344e2e3922b79e04d6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit040c47e9da8fff344e2e3922b79e04d6::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit040c47e9da8fff344e2e3922b79e04d6::$fallbackDirsPsr4;
+            $loader->classMap = ComposerStaticInit040c47e9da8fff344e2e3922b79e04d6::$classMap;
 
         }, null, ClassLoader::class);
     }
