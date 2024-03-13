@@ -14,11 +14,9 @@ $app->get('/api/sensoren', function (Request $request, Response $response) {
 
     $database = new App\Database;
 
-    $pdo = $database->getConnection();
-    
-    $stmt = $pdo->query("SELECT * FROM sensor");
+    $repository = new App\Repositories\SensorRepository($database);
 
-    $data = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    $data = $repository->getAllSensoren();
 
     $body = json_encode($data);
 
