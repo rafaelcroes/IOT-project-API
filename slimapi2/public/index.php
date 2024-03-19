@@ -6,10 +6,19 @@ use Slim\Factory\AppFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use DI\Container;
+use DI\ContainerBuilder;
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+define('APP_ROOT', dirname(__DIR__));
 
-$container = new Container;	
+require APP_ROOT . '/vendor/autoload.php';
+
+$builder = new ContainerBuilder();
+
+
+
+$container = $builder->addDefinitions(APP_ROOT . '/config/definitions.php')
+                     ->build();
+
 
 AppFactory::setContainer($container);
 
