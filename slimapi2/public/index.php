@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use DI\Container;
 use DI\ContainerBuilder;
 use Slim\Handlers\Strategies\RequestResponseArgs;
+use Slim\Psr7\Message;
 
 define('APP_ROOT', dirname(__DIR__));
 
@@ -58,6 +59,12 @@ $app->get('/api/sensoren/{id:[0-9]+}', function (Request $request, Response $res
     $repository = $this->get(App\Repositories\SensorRepository::class);
 
     $data = $repository->getSensorById((int) $id);
+
+    if($data === false)
+    {
+        throw new \Slim\Exception\HttpNotFoundException($request, 
+                                                        message: "Sensor bestaat niet");
+    }
 
     $body = json_encode($data);
 
