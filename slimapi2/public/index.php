@@ -53,9 +53,16 @@ $app->get('/api/metingen', function (Request $request, Response $response) {
     return $response->withHeader('Content-Type', 'application/json');  
 });
 
-$app->get('/api/sensoren/{id:[0-9]+}', function (Request $request, Response $response, string $id){    
-    $response->getBody()->write($id);
-    return $response;  
+$app->get('/api/sensoren/{id:[0-9]+}', function (Request $request, Response $response, string $id){   
+
+    $repository = $this->get(App\Repositories\SensorRepository::class);
+
+    $data = $repository->getSensorById((int) $id);
+
+    $body = json_encode($data);
+
+    $response->getBody()->write($body);
+    return $response->withHeader('Content-Type', 'application/json');  
 
 });
 
