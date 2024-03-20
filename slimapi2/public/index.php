@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use DI\Container;
 use DI\ContainerBuilder;
+use Slim\Handlers\Strategies\RequestResponseArgs;
 
 define('APP_ROOT', dirname(__DIR__));
 
@@ -23,6 +24,9 @@ $container = $builder->addDefinitions(APP_ROOT . '/config/definitions.php')
 AppFactory::setContainer($container);
 
 $app = AppFactory::create();
+
+$collector =$app->getRouteCollector();
+$collector->setDefaultInvocationStrategy(new RequestResponseArgs);
 
 $app->get('/api/sensoren', function (Request $request, Response $response) {
 
@@ -47,6 +51,12 @@ $app->get('/api/metingen', function (Request $request, Response $response) {
 
     $response->getBody()->write($body);
     return $response->withHeader('Content-Type', 'application/json');  
+});
+
+$app->get('/api/sensoren/{id:[0-9]+}', function (Request $request, Response $response, string $id){    
+    $response->getBody()->write($id);
+    return $response;  
+
 });
 
 
