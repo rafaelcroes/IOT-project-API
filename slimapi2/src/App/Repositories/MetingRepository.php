@@ -26,5 +26,25 @@ class MetingRepository
 
 
     }
+    public function getMetingBySensorId(int $id) : array | bool
+    {
 
+        $sql = 'SELECT *
+                FROM meting
+                where SensorID = :id
+                Order by MetingID desc';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchall(PDO::FETCH_ASSOC);
+
+
+
+}
 }
