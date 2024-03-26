@@ -2,6 +2,7 @@
 //wawa
 declare(strict_types=1);
 
+use App\Middleware\AapSleutel;
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -28,6 +29,14 @@ $app = AppFactory::create();
 
 $collector =$app->getRouteCollector();
 $collector->setDefaultInvocationStrategy(new RequestResponseArgs);
+
+$error_middleware = $app->addErrorMiddleware(true, true, true);
+
+$error_handler = $error_middleware->getDefaultErrorHandler();
+
+$error_handler->forceContentType('application/json');
+
+$app->add(new AapSleutel);
 
 $app->get('/api/sensoren', function (Request $request, Response $response) {
 
@@ -63,7 +72,7 @@ $app->get('/api/sensoren/{id:[0-9]+}', function (Request $request, Response $res
     if($data === false)
     {
         throw new \Slim\Exception\HttpNotFoundException($request, 
-                                                        message: "Sensor bestaat niewt");
+                                                        message: "Sensor bestaat niet");
     }
 
     $body = json_encode($data);
