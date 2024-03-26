@@ -38,17 +38,7 @@ $error_handler->forceContentType('application/json');
 
 $app->add(new AapSleutel);
 
-$app->get('/api/sensoren', function (Request $request, Response $response) {
-
-    $repository = $this->get(App\Repositories\SensorRepository::class);
-
-    $data = $repository->getAllSensoren();
-
-    $body = json_encode($data);
-
-    $response->getBody()->write($body);
-    return $response->withHeader('Content-Type', 'application/json');  
-});
+$app->get('/api/sensoren', App\Controllers\Sensoren::class . ':showAllSensoren');
 
 
 $app->get('/api/metingen', function (Request $request, Response $response) {
