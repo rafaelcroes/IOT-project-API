@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class AapSleutel
 {
-    private $apiKey = "Thuggshaker";
+    private $apiKey = "Dönerkebab";
 
     public function __invoke(Request $request, RequestHandler $handler): Response
     {

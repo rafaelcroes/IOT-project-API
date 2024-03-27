@@ -24,4 +24,14 @@ class Sensoren
         $response->getBody()->write($body);
         return $response->withHeader('Content-Type', 'application/json');  
     }
+
+
+    public function addSensor(Request $request, Response $response): Response
+    {
+        $body = $request->getParsedBody();
+        $body = json_encode($body);
+        $response->getBody()->write($body);
+        
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }

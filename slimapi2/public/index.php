@@ -30,6 +30,8 @@ $app = AppFactory::create();
 $collector =$app->getRouteCollector();
 $collector->setDefaultInvocationStrategy(new RequestResponseArgs);
 
+$app->addBodyParsingMiddleware();
+
 $error_middleware = $app->addErrorMiddleware(true, true, true);
 
 $error_handler = $error_middleware->getDefaultErrorHandler();
@@ -39,6 +41,10 @@ $error_handler->forceContentType('application/json');
 $app->add(new AapSleutel);
 
 $app->get('/api/sensoren', App\Controllers\Sensoren::class . ':showAllSensoren');
+
+$app->post('/api/sensoren', App\Controllers\Sensoren::class . ':addSensor');
+
+
 
 
 $app->get('/api/metingen', function (Request $request, Response $response) {
