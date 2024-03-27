@@ -29,9 +29,16 @@ class Sensoren
     public function addSensor(Request $request, Response $response): Response
     {
         $body = $request->getParsedBody();
-        $body = json_encode($body);
+        $id = $this->repository->addSensor($body);
+
+        $body = json_encode([
+            'message' => 'Sensor toegevoegd',
+            'id' => $id
+        ]);
+
         $response->getBody()->write($body);
-        
-        return $response->withHeader('Content-Type', 'application/json');
+
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+
     }
 }
