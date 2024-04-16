@@ -25,6 +25,22 @@ class Sensoren
         return $response->withHeader('Content-Type', 'application/json');  
     }
 
+    public function getSensorById(Request $request, Response $response, string $id): Response
+    {
+
+        $data = $this->repository->getSensorById((int) $id);
+    
+        if($data === false)
+        {
+            throw new \Slim\Exception\HttpNotFoundException($request, 
+                                                            message: "Sensor bestaat niet");
+        }
+    
+        $body = json_encode($data);
+    
+        $response->getBody()->write($body);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 
     public function addSensor(Request $request, Response $response): Response
     {

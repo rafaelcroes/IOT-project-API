@@ -44,58 +44,12 @@ $app->get('/api/sensoren', App\Controllers\Sensoren::class . ':showAllSensoren')
 
 $app->post('/api/sensoren', App\Controllers\Sensoren::class . ':addSensor');
 
+$app->get('/api/metingen', App\Controllers\Metingen::class . ':getAllMetingen');
 
+$app->get('/api/sensoren/{id:[0-9]+}', App\Controllers\Sensoren::class . ':getSensorById');
 
+$app->get('/api/metingen/{id:[0-9]+}', App\Controllers\Metingen::class . ':getMetingBySensorId');
 
-$app->get('/api/metingen', function (Request $request, Response $response) {
-
-    $repository = $this->get(App\Repositories\MetingRepository::class);
-
-    $data = $repository->getAllMetingen();
-
-    $body = json_encode($data);
-
-    $response->getBody()->write($body);
-    return $response->withHeader('Content-Type', 'application/json');  
-});
-
-$app->get('/api/sensoren/{id:[0-9]+}', function (Request $request, Response $response, string $id){   
-
-    $repository = $this->get(App\Repositories\SensorRepository::class);
-
-    $data = $repository->getSensorById((int) $id);
-
-    if($data === false)
-    {
-        throw new \Slim\Exception\HttpNotFoundException($request, 
-                                                        message: "Sensor bestaat niet");
-    }
-
-    $body = json_encode($data);
-
-    $response->getBody()->write($body);
-    return $response->withHeader('Content-Type', 'application/json');  
-
-});
-
-$app->get('/api/metingen/{id:[0-9]+}', function (Request $request, Response $response, string $id){   
-
-    $repository = $this->get(App\Repositories\MetingRepository::class);
-
-    $data = $repository->getMetingBySensorId((int) $id);
-
-    if($data === false)
-    {
-        throw new \Slim\Exception\HttpNotFoundException($request, 
-                                                        message: "Sensor bestaat niewt");
-    }
-
-    $body = json_encode($data);
-
-    $response->getBody()->write($body);
-    return $response->withHeader('Content-Type', 'application/json');  
-
-});
-
+$app->post('/api/metingen', App\Controllers\Sensoren::class . ':addMeting');
 
 $app->run();
