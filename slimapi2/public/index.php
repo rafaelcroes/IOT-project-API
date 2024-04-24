@@ -50,6 +50,8 @@ $app->get('/api/sensoren/{id:[0-9]+}', App\Controllers\Sensoren::class . ':getSe
 
 $app->get('/api/metingen/{id:[0-9]+}', App\Controllers\Metingen::class . ':getMetingBySensorId');
 
-$app->post('/api/metingen', App\Controllers\Sensoren::class . ':addMeting');
+$app->post('/api/metingen', App\Controllers\Metingen::class . ':addMeting');
+
+$app->get('/api/metingen/filters', App\Controllers\Metingen::class . ':getFilteredMetingen');
 
 $app->run();
